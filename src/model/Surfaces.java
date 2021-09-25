@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class Surfaces extends ArrayList<Surfaces.Surface> {
 
     public Surfaces(){
-        Surface surface1=new Surface(Params.WIDTH/Params.GROUND_WIDTH);
+        Surface surface1=new Surface(Params.WIDTH/Params.GROUND_WIDTH,0);
         surface1.setLayoutX(0);
         this.add(surface1);
-        Surface surface2=new Surface(Params.WIDTH/Params.GROUND_WIDTH);
+        Surface surface2=new Surface(Params.WIDTH/Params.GROUND_WIDTH,0);
         surface2.setLayoutX(Params.WIDTH);
         this.add(surface2);
     }
@@ -31,14 +31,22 @@ public class Surfaces extends ArrayList<Surfaces.Surface> {
 
 
 protected static class Surface extends HBox{
+    private static Image rampground= new Image("/resources/rampground.png");
+    private static Image ground= new Image("/resources/ground.png");
 
-    public Surface(double num){
+    public Surface(double num, int mode){
 
-        Ground ground=new Ground();
         int i=(int)(num);
+        if(mode==1){
         for(int j=0;j<i;j++) {
-            ImageView groundView= new ImageView(ground);
+            ImageView groundView= new ImageView(rampground);
             this.getChildren().add(groundView);
+        }}
+        else{
+            for(int j=0;j<i;j++) {
+                ImageView groundView= new ImageView(ground);
+                this.getChildren().add(groundView);
+            }
         }
 
         this.setLayoutY(Params.HEIGHT-Params.GROUND_HEIGHT);

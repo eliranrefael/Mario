@@ -1,6 +1,8 @@
 package model;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,7 +35,7 @@ public class Stars extends ArrayList<Stars.Star> {
  }
 
  public void relocate(Star star){
-     star.setLayoutY(Params.HEIGHT-Params.GROUND_HEIGHT-random.nextInt(Params.STAR_SPACEY));
+     star.setLayoutY(Params.STAR_POS-random.nextInt(Params.STAR_SPACEY));
      double start=Params.WIDTH;
      for(Star tempStar:this){
          if(tempStar.getLayoutX()>start)
@@ -75,12 +77,9 @@ public class Stars extends ArrayList<Stars.Star> {
 
 
 
-protected class Star extends Text {
+protected class Star extends ImageView {
 
     public Star(){
-        setText("       *\n     ***\n    *****\n***********\n *********\n   *******\n *********\n***********\n    *****\n     ***\n       *");
-        setLineSpacing(-10);
-        setFont(new Font(10));
-        setFill(Color.YELLOW);
+        super(new Image("/resources/star.png"));
     }
 }}

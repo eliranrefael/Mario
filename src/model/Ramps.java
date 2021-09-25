@@ -186,7 +186,7 @@ public class Ramps extends ArrayList<Ramps.Ramp> {
         public Ramp(int len){
             active=false;
             length=len;
-            ramp=new Surfaces.Surface(len);
+            ramp=new Surfaces.Surface(len,1);
 
 
 

@@ -11,6 +11,8 @@ public interface Params {
     double SCORE_LOCATIONX = WIDTH/15;
     double SCORE_LOCATIONY = HEIGHT/15;
     int CHARACTER_POS = HEIGHT-GROUND_HEIGHT-75;
+    int STAR_POS = HEIGHT-GROUND_HEIGHT-50;
+
 
     //SPACES AND LENGTHS
       int CLOUDS_SPACE=110;
