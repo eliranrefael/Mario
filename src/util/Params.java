@@ -21,7 +21,7 @@ public interface Params {
       int JUMP =200 ;
     int CLOUDS_SPACEY = 100;
     int RAMP_MAX_WIDTH = 4;
-    int STAR_SPACEY = 100;
+    int STAR_SPACEY = 250;
     double STAR_SPACEX = 220;
 
     //QUANTITIES
@@ -29,4 +29,20 @@ public interface Params {
     int RAMPS_NUM = 6;
     int STAR_NUM = 6;
 
+
+    public enum LEVEL{
+        LEVEL_ONE(1.5),
+        LEVEL_TWO(2),
+        LEVEL_THREE(3),
+        LEVEL_FOUR(3.5),
+        LEVEL_FIVE(4);
+
+        public final double value;
+
+        LEVEL(final double newvalue){
+            value=newvalue;
+        }
+
+
+    }
 }

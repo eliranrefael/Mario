@@ -1,13 +1,16 @@
 package model;
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import util.Params;
+import view.GameView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,8 +48,8 @@ public class Stars extends ArrayList<Stars.Star> {
      int temp=random.nextInt(Params.STAR_SPACE);
      star.setLayoutX(start+Params.STAR_SPACEX+temp);
 
-     if(star.getLayoutY()<Params.HEIGHT-Params.JUMP)
-         ramps.activate(star.getLayoutX(), star.getLayoutY()+50);
+     if(star.getLayoutY()<Params.CHARACTER_POS-Params.JUMP+75)
+         ramps.activate(star.getLayoutX(), star.getLayoutY()+100);
 
 
  }
@@ -54,7 +57,7 @@ public class Stars extends ArrayList<Stars.Star> {
 
  public void relocate(){
      for(Star star:this){
-         star.setLayoutX(star.getLayoutX()-1);
+         star.setLayoutX(star.getLayoutX()- GameView.level.value);
 
          if(star.getLayoutX()<=(-1*star.getLayoutBounds().getWidth()))
              relocate(star);
@@ -79,7 +82,21 @@ public class Stars extends ArrayList<Stars.Star> {
 
 protected class Star extends ImageView {
 
+    RotateTransition rotateTransition;
+
     public Star(){
         super(new Image("/resources/star.png"));
+
+        rotateTransition=new RotateTransition(Duration.millis(2000), this);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setFromAngle(-50);
+        rotateTransition.setToAngle(50);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.setInterpolator(Interpolator.LINEAR);
+
+//        rotateTransition.setByAngle(360f);
+        rotateTransition.setCycleCount(Timeline.INDEFINITE);
+        rotateTransition.play();
+
     }
 }}

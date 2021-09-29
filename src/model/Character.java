@@ -1,5 +1,6 @@
 package model;
 
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -31,21 +32,21 @@ public class Character extends AnchorPane {
     private int count=0;
 
 
-    public Character(){
+    public Character() {
 
-        walk1=new ImageView(new Image("/resources/mario-red-walk1.png"));
-        walk2=new ImageView(new Image("/resources/mario-red-walk2.png"));
+        walk1 = new ImageView(new Image("/resources/mario-red-walk1.png"));
+        walk2 = new ImageView(new Image("/resources/mario-red-walk2.png"));
         walk1.setLayoutY(0);
         walk2.setLayoutY(0);
         walk1.setLayoutX(0);
         walk2.setLayoutX(0);
-        this.getChildren().addAll(walk1,walk2);
+        this.getChildren().addAll(walk1, walk2);
         walk2.setVisible(false);
 
-
         this.setLayoutX(25);
+        this.setLayoutY(Params.CHARACTER_POS);
 
-        this.setLayoutY(Params.HEIGHT-Params.GROUND_HEIGHT-Params.CHARACTER_POS);
+
 
     }
 
@@ -69,12 +70,12 @@ public class Character extends AnchorPane {
             case START:
                 up=true;
                 stat=Status.JUMPING;
-                System.out.println("from STARAT to" +stat);
+//                System.out.println("from STARAT to" +stat);
                 break;
             case STOP:
                 up2=true;
                 stat=Status.JUMPING;
-                System.out.println("from STARAT to" +stat);
+//                System.out.println("from STARAT to" +stat);
                 break;
 
 
@@ -110,7 +111,7 @@ public class Character extends AnchorPane {
                 up = false;
                 up2 = false;
                 setLayoutY(this.getLayoutY() + 5);
-                System.out.println("from JUMPING to" + stat);
+//                System.out.println("from JUMPING to" + stat);
             } else
                 stat = Status.START;
         }
@@ -119,11 +120,9 @@ public class Character extends AnchorPane {
 
     }
     public void stop(){
-            switch (stat){
-                case DOWN:
-                    stat=Status.JUMPING;
-                    break;
-            }
+        if (stat == Status.DOWN) {
+            stat = Status.JUMPING;
+        }
 
         }
 

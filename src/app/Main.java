@@ -1,6 +1,7 @@
 package app;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.GameView;
 import view.View;

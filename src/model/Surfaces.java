@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import util.Params;
+import view.GameView;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class Surfaces extends ArrayList<Surfaces.Surface> {
 
     public void moveGround(){
         for(Surface surface:this){
-            surface.setLayoutX(surface.getLayoutX()-1);
+            surface.setLayoutX(surface.getLayoutX()- GameView.level.value);
         if(surface.getLayoutX()<=(-1*Params.WIDTH))
             surface.setLayoutX(Params.WIDTH);}
     }

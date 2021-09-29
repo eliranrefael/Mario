@@ -2,6 +2,7 @@ package view;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +25,9 @@ public class GameView {
     private Random random;
     private Score score;
     private boolean onRamp=false;
+
+
+    public static Params.LEVEL level= Params.LEVEL.LEVEL_FIVE;
     //private String[] buttonsLabels;
     //private ArrayList<MarioButton> buttons;
     //private ArrayList<SubScene> subScenes;
@@ -48,6 +52,7 @@ public class GameView {
         mainPane=new AnchorPane();
         mainStage=new Stage();
         mainScene=new Scene(mainPane, Params.WIDTH, Params.HEIGHT);
+        mainScene.setCamera(new PerspectiveCamera());
         mainStage.setScene(mainScene);
         setListeners();
         character=new Character();

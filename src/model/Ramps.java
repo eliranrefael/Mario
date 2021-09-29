@@ -1,8 +1,10 @@
 package model;
 
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import util.Params;
+import view.GameView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,7 +53,7 @@ public class Ramps extends ArrayList<Ramps.Ramp> {
         if(!this.isEmpty()){
         for(Ramp ramp:this){
             if(ramp.active)
-                ramp.getRamp().setLayoutX(ramp.getRamp().getLayoutX()-1);
+                ramp.getRamp().setLayoutX(ramp.getRamp().getLayoutX()- GameView.level.value);
 
             if(ramp.getRamp().getLayoutX()<=(-1*ramp.getRamp().getLayoutBounds().getWidth()))
                 ramp.setActive(false);
@@ -142,25 +144,38 @@ public class Ramps extends ArrayList<Ramps.Ramp> {
 
 
     private PositionStat whereTouched(Character character) {
-        double charY=character.getBoundsInParent().getCenterY();;
-        double rampY=ramp.getRamp().getBoundsInParent().getCenterY();
-        if(character.getBoundsInParent().getMaxX()<=ramp.getRamp().getBoundsInParent().getMinX()){
-            System.out.println("left- charmaxx: "+character.getBoundsInParent().getMaxX()+" rampminx: "+ ramp.getRamp().getBoundsInParent().getMinX());
+        double charYMax=character.getBoundsInParent().getMaxY();
+        double charYMin=character.getBoundsInParent().getMinY();
+        double rampYMin=ramp.getRamp().getBoundsInParent().getMinY();
+        double rampYMax=ramp.getRamp().getBoundsInParent().getMaxY();
+
+        double upSpace=rampYMin-charYMax;
+        double bottomSpace=charYMin-rampYMax;
+        if(upSpace<=-4&&bottomSpace<=-4){
+        if(character.getBoundsInParent().getMaxX()-4<=ramp.getRamp().getBoundsInParent().getMinX()){
+            System.out.println("left- charmaxx: "+charYMax+" rampminx: "+ rampYMin);
             return PositionStat.LEFT;
         }
 
-        else if(character.getBoundsInParent().getMinX()>=ramp.getRamp().getBoundsInParent().getMaxX()){
+        else if(character.getBoundsInParent().getMinX()+4>=ramp.getRamp().getBoundsInParent().getMaxX()){
             System.out.println("right- charminx: "+character.getBoundsInParent().getMinX()+" rampmaxx: "+ ramp.getRamp().getBoundsInParent().getMaxX());
-        return PositionStat.RIGHT;}
-        if(charY<=rampY){
-            System.out.println("up- charY: "+charY+" rampY: "+ rampY);
+        return PositionStat.RIGHT;}}
+
+        if(upSpace>=-4&&upSpace<=3){
+            System.out.println("up- charY: "+charYMax+" rampY: "+ rampYMin);
             return PositionStat.TOP;
         }
-        else{
-            System.out.println("down- charY: "+charY+" rampY: "+ rampY);
+        else if(bottomSpace>=-4&&bottomSpace<=3){
+            System.out.println("down- charY: "+charYMin+" rampY: "+ charYMax);
             return PositionStat.BOTTOM;
 
         }
+        System.out.println("intersected without action"+ stat);
+        System.out.println("upspace: "+upSpace+" bottomspace: "+ bottomSpace);
+
+
+
+        return null;
     }
 
 
@@ -187,6 +202,7 @@ public class Ramps extends ArrayList<Ramps.Ramp> {
             active=false;
             length=len;
             ramp=new Surfaces.Surface(len,1);
+            ramp.setPadding(new Insets(5));
 
 
 
